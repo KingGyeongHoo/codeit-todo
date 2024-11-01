@@ -1,3 +1,4 @@
+import Header from "@/widgets/Header";
 import "../css/index.css";
 
 export const metadata = {
@@ -12,7 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>
+          <Header />
+        </header>
+        <main className="w-full h-16 bg-white px-4 lg:px-[18.75%] xs:px-6">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
