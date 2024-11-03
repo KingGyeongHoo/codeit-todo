@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
+import { TodoDataType } from "./data";
 
 type ButtonComponentProps = ComponentPropsWithoutRef<"button">;
 type InputComponentProps = ComponentPropsWithoutRef<"input">;
@@ -11,17 +12,19 @@ type ButtonPropsType = {
 } & ButtonComponentProps;
 
 type InputBarPropsType = {
+  value?: string;
   className?: string;
 } & InputComponentProps;
 
 type ItemListPropsType = {
+  info: TodoDataType;
   className?: string;
-  children: React.ReactNode;
-  isCompleted: boolean;
 } & DivComponentProps;
 
 type TodoListType = {
   className?: string;
   children?: React.ReactNode;
   img: StaticImageData;
+  list: TodoDataType[] | undefined;
+  type: string;
 };
