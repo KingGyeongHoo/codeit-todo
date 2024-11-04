@@ -11,7 +11,7 @@ import { twMerge } from "tailwind-merge";
 import CheckButton from "@/components/CheckButton";
 import { useParams } from "next/navigation";
 import { useTodo } from "@/hooks/useTodo";
-import useDataStore from "@/store/useDataStore";
+import { TodoDataType } from "@/types/data";
 
 export default function TodoDetail() {
   const router = useRouter();
@@ -24,20 +24,25 @@ export default function TodoDetail() {
 
   const { itemID } = useParams();
   const { getTodolistItem, deleteTodoListItem } = useTodo();
-  const { todoListItem } = useDataStore();
+  const [data, setData] = useState<TodoDataType>();
+
   useEffect(() => {
-    if (itemID) getTodolistItem(itemID);
+    const getData = async () => {
+      const data = await getTodolistItem(itemID);
+      setData(data);
+    };
+    getData();
   }, []);
 
   useEffect(() => {
-    if (todoListItem) {
-      setId(todoListItem.id);
-      setName(todoListItem.name);
-      setIsCompleted(todoListItem.isCompleted);
-      setMemo(todoListItem.memo ?? "");
-      setImageUrl(todoListItem.imageUrl ?? "");
+    if (data) {
+      setId(data.id);
+      setName(data.name);
+      setIsCompleted(data.isCompleted);
+      setMemo(data.memo ?? "");
+      setImageUrl(data.imageUrl ?? "");
     }
-  }, [todoListItem]);
+  }, [data]);
 
   const enterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -46,6 +51,10 @@ export default function TodoDetail() {
     setMemo(e.target.value);
   };
   const patchItem = () => {
+    if (name.length < 1) {
+      alert("할 일을 입력하세요!");
+      return;
+    }
     const req = {
       name,
       memo,
@@ -56,27 +65,35 @@ export default function TodoDetail() {
     router.push("/");
   };
   const deleteItem = () => {
-    deleteTodoListItem(id);
-    router.push("/");
+    const isDelete = confirm("삭제하시겠습니까?");
+    if (isDelete) {
+      deleteTodoListItem(id);
+      router.push("/");
+    }
   };
+
   return (
     <div className="flex flex-col gap-6 w-full h-fit">
       <div
         className={twMerge(
-          "flex justify-center items-center gap-4 w-full h-fit rounded-[24px] border-2 border-slate-900 text-slate-800 px-3 py-[9px]",
+          "flex justify-center items-center w-full h-fit rounded-[24px] border-2 border-slate-900 text-slate-800 px-3 py-[9px]",
           isCompleted ? "bg-violet-100" : "bg-white"
         )}
       >
-        <CheckButton
-          isCompleted={isCompleted}
-          onClick={() => setIsCompleted((isCompleted) => !isCompleted)}
-        />
-        <input
-          type="text"
-          className="underline text-xl font-700 outline-none bg-transparent"
-          value={todoListItem.name}
-          onChange={enterName}
-        ></input>
+        <div className="flex items-center gap-4">
+          <CheckButton
+            isCompleted={isCompleted}
+            onClick={() => setIsCompleted((isCompleted) => !isCompleted)}
+          />
+          <input
+            type="text"
+            className={twMerge(
+              "w-[140px] underline text-xl font-700 outline-none bg-transparent"
+            )}
+            value={name}
+            onChange={enterName}
+          ></input>
+        </div>
       </div>
       <div className="flex lg:flex-row flex-col xs:gap-6 gap-4 w-full h-fit">
         <Picture imageUrl={imageUrl ?? ""} setImageUrl={setImageUrl} />

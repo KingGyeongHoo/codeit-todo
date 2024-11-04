@@ -16,6 +16,10 @@ export default function Input() {
 
   const addNewTodo = (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault();
+    if (newTodo.length < 1) {
+      alert("할 일을 입력하세요!");
+      return;
+    }
     postTodoList(newTodo);
     setNewTodo("");
   };

@@ -17,6 +17,7 @@ export default function TodoLists() {
   useEffect(() => {
     getTodolist();
   }, []);
+  console.log(todoList);
 
   return (
     <div className="flex lg:flex-row flex-col gap-6 w-full h-fit md:py-6">

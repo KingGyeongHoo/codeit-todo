@@ -33,7 +33,7 @@ export default function Picture({
   };
 
   return (
-    <div className="relative flex justify-center items-center lg:w-2/5 w-full h-[320px] bg-slate-50 rounded-[24px] border-2 border-dashed border-slate-300">
+    <div className="relative flex justify-center items-center lg:w-2/5 w-full h-[320px] bg-slate-50 rounded-[24px] border-2 border-dashed border-slate-300 overflow-hidden">
       <label
         htmlFor="file-upload"
         className={twMerge(

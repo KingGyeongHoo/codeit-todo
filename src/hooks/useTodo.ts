@@ -5,12 +5,13 @@ import { Dispatch, SetStateAction } from "react";
 
 export const useTodo = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const { todoList, setTodoList, setTodoListItem } = useDataStore();
+  const { todoList, setTodoList } = useDataStore();
   const getTodolist = async () => {
     try {
       if (url) {
         const res = await axios.get(`${url}/items`);
         setTodoList(res.data);
+        return res.data;
       }
     } catch (error) {
       console.log(error);
@@ -33,7 +34,7 @@ export const useTodo = () => {
     try {
       if (url) {
         const res = await axios.get(`${url}/items/${id}`);
-        setTodoListItem(res.data);
+        return res.data;
       }
     } catch (error) {
       console.log(error);
