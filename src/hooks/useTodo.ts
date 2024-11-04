@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export const useTodo = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const { todoList, setTodoList } = useDataStore();
+  const { todoList, setTodoList, setTodoListItem } = useDataStore();
   const getTodolist = async () => {
     try {
       if (url) {
@@ -29,14 +29,11 @@ export const useTodo = () => {
     }
   };
 
-  const getTodolistItem = async (
-    id: string | string[],
-    setFunction: Dispatch<SetStateAction<any>>
-  ) => {
+  const getTodolistItem = async (id: string | string[]) => {
     try {
       if (url) {
         const res = await axios.get(`${url}/items/${id}`);
-        setFunction(res.data);
+        setTodoListItem(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +53,7 @@ export const useTodo = () => {
 
   const deleteTodoListItem = async (id: number) => {
     try {
-      const res = await axios.delete(`${url}/items/${id}`);
+      await axios.delete(`${url}/items/${id}`);
       setTodoList(todoList.filter((item: TodoDataType) => item.id !== id));
     } catch (error) {
       console.log(error);
@@ -64,8 +61,8 @@ export const useTodo = () => {
   };
 
   const uploadImage = async (
-    img: any,
-    setFunction: Dispatch<SetStateAction<any>>
+    img: FormData,
+    setFunction: Dispatch<SetStateAction<string>>
   ) => {
     const config = {
       headers: {

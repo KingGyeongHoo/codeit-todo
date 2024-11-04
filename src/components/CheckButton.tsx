@@ -1,5 +1,3 @@
-import { useTodo } from "@/hooks/useTodo";
-import useDataStore from "@/store/useDataStore";
 import { CheckButtonPropstype } from "@/types/component";
 import { twMerge } from "tailwind-merge";
 

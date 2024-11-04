@@ -3,13 +3,11 @@
 import Button from "@/components/Button";
 import InputBar from "@/components/InputBar";
 import { useTodo } from "@/hooks/useTodo";
-import useDataStore from "@/store/useDataStore";
 import plus_black from "@assets/icons/plus_black.png";
 import { useState } from "react";
 
 export default function Input() {
   const { postTodoList } = useTodo();
-  const { todoList, setTodoList } = useDataStore();
   const [newTodo, setNewTodo] = useState("");
 
   const enterTodo = (e: React.ChangeEvent<HTMLInputElement>) => {

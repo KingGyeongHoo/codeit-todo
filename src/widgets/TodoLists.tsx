@@ -13,7 +13,7 @@ import { useTodo } from "@/hooks/useTodo";
 
 export default function TodoLists() {
   const { getTodolist } = useTodo();
-  const { todoList, setTodoList } = useDataStore();
+  const { todoList } = useDataStore();
   useEffect(() => {
     getTodolist();
   }, []);

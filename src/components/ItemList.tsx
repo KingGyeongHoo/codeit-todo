@@ -5,16 +5,10 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import CheckButton from "./CheckButton";
 import { useTodo } from "@/hooks/useTodo";
-import useDataStore from "@/store/useDataStore";
 
-export default function ItemList({
-  info,
-  isInDetail,
-  className,
-}: ItemListPropsType) {
+export default function ItemList({ info, className }: ItemListPropsType) {
   const { isCompleted, name, id } = info;
 
-  const { todoList, setTodoList } = useDataStore();
   const { patchTodoListItem } = useTodo();
 
   const checkTodo = (e: React.MouseEvent) => {

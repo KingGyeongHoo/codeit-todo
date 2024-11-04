@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Memo from "./Memo";
 import Picture from "./Picture";
@@ -9,9 +9,9 @@ import check from "@assets/icons/check.png";
 import x from "@assets/icons/X.png";
 import { twMerge } from "tailwind-merge";
 import CheckButton from "@/components/CheckButton";
-import { TodoDataType } from "@/types/data";
 import { useParams } from "next/navigation";
 import { useTodo } from "@/hooks/useTodo";
+import useDataStore from "@/store/useDataStore";
 
 export default function TodoDetail() {
   const router = useRouter();
@@ -24,22 +24,20 @@ export default function TodoDetail() {
 
   const { itemID } = useParams();
   const { getTodolistItem, deleteTodoListItem } = useTodo();
-  const [data, setData] = useState<TodoDataType>();
+  const { todoListItem } = useDataStore();
   useEffect(() => {
-    itemID && getTodolistItem(itemID, setData);
-    setData(data);
+    if (itemID) getTodolistItem(itemID);
   }, []);
 
   useEffect(() => {
-    console.log(data);
-    if (data) {
-      setId(data.id);
-      setName(data.name);
-      setIsCompleted(data.isCompleted);
-      setMemo(data.memo ?? "");
-      setImageUrl(data.imageUrl ?? "");
+    if (todoListItem) {
+      setId(todoListItem.id);
+      setName(todoListItem.name);
+      setIsCompleted(todoListItem.isCompleted);
+      setMemo(todoListItem.memo ?? "");
+      setImageUrl(todoListItem.imageUrl ?? "");
     }
-  }, [data]);
+  }, [todoListItem]);
 
   const enterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -76,12 +74,15 @@ export default function TodoDetail() {
         <input
           type="text"
           className="underline text-xl font-700 outline-none bg-transparent"
-          value={name}
+          value={todoListItem.name}
           onChange={enterName}
         ></input>
       </div>
       <div className="flex lg:flex-row flex-col xs:gap-6 gap-4 w-full h-fit">
-        <Picture imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <Picture
+          imageUrl={todoListItem.imageUrl ?? ""}
+          setImageUrl={setImageUrl}
+        />
         <Memo value={memo} onChange={enterMemo} />
       </div>
       <div className="flex flex-row lg:justify-end justify-center gap-4 w-full h-fit">
