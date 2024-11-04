@@ -63,11 +63,30 @@ export const useTodo = () => {
     }
   };
 
+  const uploadImage = async (
+    img: any,
+    setFunction: Dispatch<SetStateAction<any>>
+  ) => {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    try {
+      const res = await axios.post(`${url}/images/upload`, img, config);
+      console.log(res.data);
+      setFunction(res.data.url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getTodolist,
     postTodoList,
     getTodolistItem,
     patchTodoListItem,
     deleteTodoListItem,
+    uploadImage,
   };
 };

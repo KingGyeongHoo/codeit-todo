@@ -23,7 +23,7 @@ export default function ItemList({
       isCompleted: !isCompleted,
     };
     if (id) {
-      patchTodoListItem(id, req, todoList, setTodoList);
+      patchTodoListItem(id, req);
     }
   };
 

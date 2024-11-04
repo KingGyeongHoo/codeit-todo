@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Memo from "./Memo";
 import Picture from "./Picture";
@@ -31,14 +31,19 @@ export default function TodoDetail() {
   }, []);
 
   useEffect(() => {
+    console.log(data);
     if (data) {
       setId(data.id);
       setName(data.name);
       setIsCompleted(data.isCompleted);
       setMemo(data.memo ?? "");
+      setImageUrl(data.imageUrl ?? "");
     }
   }, [data]);
 
+  const enterName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
   const enterMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(e.target.value);
   };
@@ -68,10 +73,15 @@ export default function TodoDetail() {
           isCompleted={isCompleted}
           onClick={() => setIsCompleted((isCompleted) => !isCompleted)}
         />
-        <span className="underline font-700">{data?.name}</span>
+        <input
+          type="text"
+          className="underline text-xl font-700 outline-none bg-transparent"
+          value={name}
+          onChange={enterName}
+        ></input>
       </div>
       <div className="flex lg:flex-row flex-col xs:gap-6 gap-4 w-full h-fit">
-        <Picture />
+        <Picture imageUrl={imageUrl} setImageUrl={setImageUrl} />
         <Memo value={memo} onChange={enterMemo} />
       </div>
       <div className="flex flex-row lg:justify-end justify-center gap-4 w-full h-fit">
