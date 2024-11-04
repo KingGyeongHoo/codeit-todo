@@ -5,24 +5,17 @@ import done_img from "@assets/images/done.png";
 import { TodoListType } from "@/types/component";
 import Image from "next/image";
 import ItemList from "@/components/ItemList";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TodoDataType } from "@/types/data";
 import useDataStore from "@/store/useDataStore";
 import { twMerge } from "tailwind-merge";
+import { useTodo } from "@/hooks/useTodo";
 
 export default function TodoLists() {
+  const { getTodolist } = useTodo();
   const { todoList, setTodoList } = useDataStore();
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_API_URL;
-    fetch(`${url}/items`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => setTodoList(res))
-      .catch((err) => console.log(err));
+    getTodolist();
   }, []);
 
   return (

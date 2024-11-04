@@ -2,11 +2,13 @@
 
 import Button from "@/components/Button";
 import InputBar from "@/components/InputBar";
+import { useTodo } from "@/hooks/useTodo";
 import useDataStore from "@/store/useDataStore";
 import plus_black from "@assets/icons/plus_black.png";
 import { useState } from "react";
 
 export default function Input() {
+  const { postTodoList } = useTodo();
   const { todoList, setTodoList } = useDataStore();
   const [newTodo, setNewTodo] = useState("");
 
@@ -16,25 +18,7 @@ export default function Input() {
 
   const addNewTodo = (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault();
-    const url = process.env.NEXT_PUBLIC_API_URL;
-    const req = {
-      name: newTodo,
-    };
-    const post = () => {
-      fetch(`${url}/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(req),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (todoList) setTodoList([res, ...todoList]);
-        })
-        .catch((err) => console.log(err));
-    };
-    post();
+    postTodoList(newTodo);
     setNewTodo("");
   };
 

@@ -1,5 +1,5 @@
 import Header from "@/widgets/Header";
-import "../css/index.css";
+import "../css/global.css";
 
 export const metadata = {
   title: "Next.js",
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="font-nanum font-400">
         <header>
           <Header />
         </header>

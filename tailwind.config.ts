@@ -15,6 +15,14 @@ const config: Config = {
       screens: {
         xs: "376px",
       },
+      fontFamily: {
+        nanum: ["NanumSquare"],
+      },
+      fontWeight: {
+        "400": "400",
+        "700": "700",
+        "800": "800",
+      },
     },
   },
   plugins: [],
