@@ -79,10 +79,7 @@ export default function TodoDetail() {
         ></input>
       </div>
       <div className="flex lg:flex-row flex-col xs:gap-6 gap-4 w-full h-fit">
-        <Picture
-          imageUrl={todoListItem.imageUrl ?? ""}
-          setImageUrl={setImageUrl}
-        />
+        <Picture imageUrl={imageUrl ?? ""} setImageUrl={setImageUrl} />
         <Memo value={memo} onChange={enterMemo} />
       </div>
       <div className="flex flex-row lg:justify-end justify-center gap-4 w-full h-fit">
