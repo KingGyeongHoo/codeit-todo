@@ -1,3 +1,5 @@
+//할 일 데이터들의 타입입니다
+
 export type TodoDataType = {
   isCompleted: boolean;
   name: string;

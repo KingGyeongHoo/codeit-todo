@@ -2,6 +2,7 @@ import { ButtonPropsType } from "@/types/component";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 
+//[공통] 버튼 컴포넌트입니다
 export default function Button({
   className,
   src,

@@ -12,6 +12,7 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      //커스텀 스타일 지정
       screens: {
         xs: "376px",
       },

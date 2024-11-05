@@ -11,14 +11,17 @@ import useDataStore from "@/store/useDataStore";
 import { twMerge } from "tailwind-merge";
 import { useTodo } from "@/hooks/useTodo";
 
+//할 일 목록을 보여주는 위젯입니다
 export default function TodoLists() {
   const { getTodolist } = useTodo();
   const { todoList } = useDataStore();
+
+  //전체 할 일을 받아옵니다
   useEffect(() => {
     getTodolist();
   }, []);
-  console.log(todoList);
 
+  //해야 할 일과 완료한 일을 구분해서 보여줍니다
   return (
     <div className="flex lg:flex-row flex-col gap-6 w-full h-fit md:py-6">
       <List
@@ -35,6 +38,8 @@ export default function TodoLists() {
   );
 }
 
+//할 일을 리스트 형식으로 보여주는 컴포넌트입니다
+//할 일이 있을 경우 리스트를, 없을 경우 없음 이미지를 출력합니다
 const List = ({ list, img, type }: TodoListType) => {
   return (
     <div className="lg:w-1/2 flex flex-col gap-4 w-full h-fit">

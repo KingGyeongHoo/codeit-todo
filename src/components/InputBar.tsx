@@ -1,6 +1,7 @@
 import { InputBarPropsType } from "@/types/component";
 import { twMerge } from "tailwind-merge";
 
+//[공통]입력을 위한 입력 바 컴포넌트입니다
 export default function InputBar({
   value,
   className,

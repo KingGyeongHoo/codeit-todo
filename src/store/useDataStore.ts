@@ -1,6 +1,8 @@
 import { TodoDataType } from "@/types/data";
 import { create } from "zustand";
 
+//할 일 목록을 전역으로 관리하기 위한 Zustand Store입니다
+
 // 상태 타입 정의
 interface TodoDataState {
   todoList: TodoDataType[];

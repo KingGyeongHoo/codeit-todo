@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef } from "react";
 import { TodoDataType } from "./data";
 
+//컴포넌트들의 prop를 전달받을 때 사용하는 타입입니다
+
 type ButtonComponentProps = ComponentPropsWithoutRef<"button">;
 type InputComponentProps = ComponentPropsWithoutRef<"input">;
 type DivComponentProps = ComponentPropsWithoutRef<"div">;
